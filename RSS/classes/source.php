@@ -30,7 +30,7 @@ class Source {
   }
 
   function to_string() {
-    return "\"".$this->name."\", \"".$this->src."\", \"".$this->color."\"";
+    return "\"".$this->name."\", \"".$this->src."\", \"".$this->color."\", \"".$this->twitter."\"";
   }
 
   function has_conflict($source) {

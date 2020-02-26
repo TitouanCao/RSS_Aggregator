@@ -384,19 +384,37 @@ function display_feeds() {
             <th>
               Color
             </th>
+            <th>
+              Twitter
+            </th>
           </tr>";
   foreach($_SESSION["rss"] as $source) {
-    echo "<tr>
-            <td>
-              ".$source->name."
-            </td>
-            <td>
-              ".$source->src."
-            </td>
-            <td style='background-color:".$source->color."'>
-              ".$source->color."
-            </td>
-          </tr>";
+    $string = "<tr>
+                <td>
+                  ".$source->name."
+                </td>
+                <td>
+                  ".$source->src."
+                </td>
+                <td style='background-color:".$source->color."'>
+                  ".$source->color."
+                </td>
+                <td>";
+    if ($source->twitter == null || $source->twitter == "") {
+      $string = $string."
+                  <img src='".$_SESSION["resourcesLocation"]."twitter.png' alt='twitter icon' width='60px' class='no-twitter'>
+                </td>";
+    }
+    else {
+      $string = $string."
+                  <a class='twitter' href='".$source->twitter."' target='_blank'>
+                    <img src='".$_SESSION["resourcesLocation"]."twitter.png' alt='twitter icon' width='60px'>
+                  </a>
+                </td>";
+    }
+
+    $string = $string."</tr>";
+    echo $string;
   }
   echo "</table>";
 }

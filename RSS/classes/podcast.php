@@ -62,24 +62,16 @@ class Podcast {
 
   function to_string_compact_cell() {
     if (!isset($_SESSION["resourcesLocation"])) return display_err_msg("Session not found");
-    $string ="<div class='cell-inner-div' style='background-color:".$this->source->color.";'>
-                <div id=".spl_object_hash($this)." class='audio-icon' onclick='switch_audio(this.id)'>
-                  <img src='".$_SESSION["resourcesLocation"]."play.png' alt='audio situation icon' width='40px'>
-                </div>
-                <div class='compact-span'>".$this->date->format("d F Y")."</div>
-                <div class='compact-a'><a href='$this->pageLink' target='_blank'><span title='".$this->description."'>".$this->title."</span></a></div>
-                <audio preload='none' src=".$this->audioLink.">
-                  Your browser does not support the audio element.
-                </audio>";
-    if ($this->source->twitter != null) {
-      $string = $string."<div class='twitter'>
-                          <a href='".$this->source->twitter."' target='_blank'>
-                            <img src='".$_SESSION["resourcesLocation"]."twitter.png' alt='twitter icon' width='60px'>
-                          </a>
-                        </div>";
-    }
-    $string = $string."</div>";
-    return $string;
+    return "<div class='cell-inner-div' style='background-color:".$this->source->color.";'>
+              <div id=".spl_object_hash($this)." class='audio-icon' onclick='switch_audio(this.id)'>
+                <img src='".$_SESSION["resourcesLocation"]."play.png' alt='audio situation icon' width='40px'>
+              </div>
+              <div class='compact-span'>".$this->date->format("d F Y")."</div>
+              <div class='compact-a'><a href='$this->pageLink' target='_blank'><span title='".$this->description."'>".$this->title."</span></a></div>
+              <audio preload='none' src=".$this->audioLink.">
+                Your browser does not support the audio element.
+              </audio>
+            </div>";
   }
 
 

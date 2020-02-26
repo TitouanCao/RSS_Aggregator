@@ -137,9 +137,9 @@ body {
   display: flex;
   flex-direction: row;
   top: 5%;
-  left: -28.5vw;
+  left: -33.5vw;
   height: 90%;
-  width: 30vw;
+  width: 35vw;
   transition: 1s;
 }
 
@@ -298,12 +298,16 @@ body {
   border-radius: 10px;
 }
 
-.twitter a {
+.twitter {
   transition: 0.2s;
 }
 
-.twitter a:hover {
+.twitter:hover {
   filter: drop-shadow(2px 2px 3px black);
+}
+
+.no-twitter {
+  filter: grayscale(100%);
 }
 
 .dld {
