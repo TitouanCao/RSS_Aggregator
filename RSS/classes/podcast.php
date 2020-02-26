@@ -71,9 +71,9 @@ class Podcast {
                 <audio preload='none' src=".$this->audioLink.">
                   Your browser does not support the audio element.
                 </audio>";
-    if ($this->source == "Radio France") {
+    if ($this->source->twitter != null) {
       $string = $string."<div class='twitter'>
-                          <a href='https://twitter.com/lamethodeFC' target='_blank'>
+                          <a href='".$this->source->twitter."' target='_blank'>
                             <img src='".$_SESSION["resourcesLocation"]."twitter.png' alt='twitter icon' width='60px'>
                           </a>
                         </div>";

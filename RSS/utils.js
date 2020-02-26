@@ -113,11 +113,11 @@ document.addEventListener('click', function(e) {
     else if (e.target.className == 'picker-input' || e.target.className == 'picker-form') {
       picker.style.top = "0"
       picker.style.left = "0"
-      adder.style.bottom = "-160px"
+      adder.style.bottom = "-210px"
       adder.style.left = "-260px"
     }
     else {
-      adder.style.bottom = "-160px"
+      adder.style.bottom = "-210px"
       adder.style.left = "-260px"
       picker.style.top = "-30px"
       picker.style.left = "-180px"

@@ -192,9 +192,9 @@ function display_compact($resources) {
   echo "</table>";
 }
 
-function evaluate_feed($name, $src, $color) {
-  if ($name == "" && $src == "" && $color == "") return "Empty";
-  $source = new Source($name, $src, $color);
+function evaluate_feed($name, $src, $color, $twitter) {
+  if ($name == "" && $src == "" && $color == "" && $twitter == "") return "Empty";
+  $source = new Source($name, $src, $color, $twitter);
   foreach ($_SESSION["rss"] as $key => $value) {
     if ($source->is_same_feed($value)) {
       delete_feed($key);
@@ -205,7 +205,7 @@ function evaluate_feed($name, $src, $color) {
       return "Modification";
     }
   }
-  add_new_feed(new Source($name, $src, $color));
+  add_new_feed(new Source($name, $src, $color, $twitter));
   return "Creation";
 }
 
@@ -230,6 +230,9 @@ function modificate_feed($source, $key) {
   }
   if ($source->has_color()) {
     $_SESSION["rss"][$key]->color = $source->color;
+  }
+  if ($source->has_twitter()) {
+    $_SESSION["rss"][$key]->twitter = $source->twitter;
   }
   write_source_file($_SESSION["rss"]);
 }

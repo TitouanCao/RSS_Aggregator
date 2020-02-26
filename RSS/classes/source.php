@@ -4,17 +4,13 @@ class Source {
   public $name;
   public $src;
   public $color;
+  public $twitter;
 
-  function __construct($name, $src, $color) {
+  function __construct($name, $src, $color, $twitter = null) {
     $this->name = $name;
     $this->src = $src;
-
-    if ($color != null && $color != "") {
-      $this->color = $color;
-    }
-    else {
-      $this->color = "white";
-    }
+    $this->twitter = $twitter;
+    $this->color = $color;
   }
 
   function is_correct() {
@@ -24,9 +20,13 @@ class Source {
   }
 
   function has_color() {
-    return $this->color != null && (preg_match("#\#[a-f0-9]{6}#", $this->color) ||
+    return $this->color != null && $this->color != "" && (preg_match("#\#[a-f0-9]{6}#", $this->color) ||
     in_array($this->color, $_SESSION["colors"]) ||
     in_array($this->color, array_map('mb_strtolower', $_SESSION["colors"])));
+  }
+
+  function has_twitter() {
+    return $this->twitter != null && $this->twitter != "";
   }
 
   function to_string() {

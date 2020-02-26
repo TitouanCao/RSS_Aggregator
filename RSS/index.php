@@ -22,8 +22,8 @@ if (isset($_GET["stop"])) {
 }
 else $stop = 5;
 
-if(isset($_POST["name"]) && isset($_POST["src"]) && isset($_POST["color"])) {
-  $eval = evaluate_feed($_POST["name"], $_POST["src"], $_POST["color"]);
+if(isset($_POST["name"]) && isset($_POST["src"]) && isset($_POST["color"]) && isset($_POST["twitter"])) {
+  $eval = evaluate_feed($_POST["name"], $_POST["src"], $_POST["color"], $_POST["twitter"]);
 }
 
 if (!isset($_GET["mode"])){
@@ -74,6 +74,7 @@ if (!isset($_GET["mode"])){
     <form action="" method="post" class="adder-form">
       <input type="text" name="name" placeholder="name" class="adder-input">
       <input type="text" name="src" placeholder="url" class="adder-input">
+      <input type="text" name="twitter" placeholder="twitter" class="adder-input">
       <input type="text" name="color" placeholder="color" class="adder-input">
       <input type="submit" value="Create/Delete/Modify">
     </form>
