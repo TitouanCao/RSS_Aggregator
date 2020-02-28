@@ -34,18 +34,18 @@ class Source {
   }
 
   function has_conflict($source) {
-    if ($this->name == $source->name || $this->src == $source->src) {
+    if (trim($this->name) == trim($source->name) || trim($this->src) == trim($source->src)) {
       return true;
     }
     else return false;
   }
 
   function is_same_feed($source) {
-    return $this->src == $source->src;
+    return trim($this->src) == trim($source->src);
   }
 
   function is_same_name($source) {
-    return $this->name == $source->name;
+    return trim($this->name) == trim($source->name);
   }
 
 }

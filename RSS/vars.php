@@ -2,7 +2,7 @@
 $_SESSION["resourcesLocation"] = "resources/";
 $_SESSION["saveLocation"] = "save/";
 $_SESSION["classesLocation"] = "classes/";
-
+$_SESSION["utilsLocation"] = "utils/";
 
 $_SESSION["colors"] = array(
   "AliceBlue",

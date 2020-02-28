@@ -10,7 +10,7 @@ require_once($_SESSION["classesLocation"]."podcast.php");
 
 require_once($_SESSION["saveLocation"]."feeds.php");
 
-require_once("utils.php");
+require_once($_SESSION["utilsLocation"]."utils.php");
 
 if (isset($_GET["start"])) {
   $start = $_GET["start"];
@@ -37,18 +37,19 @@ if (!isset($_GET["mode"])){
 
 <html>
 <head>
-  <title>Podcast Agregator</title>
+  <title>Podcast Aggregator</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" href="<?php echo $_SESSION['resourcesLocation'] ?>favico.png" />
+  <link rel="stylesheet" type="text/css" href="CSS/style.css">
 </head>
 <body>
-  <div id="compact-container">
-    <div class="scroller">
+  <div id='compact-container'>
+    <div class='scroller'>
       <?php display_compact($_SESSION["rss"]); ?>
     </div>
   </div>
-  <div id="row-container">
-    <div class="scroller">
+  <div id='row-container'>
+    <div class='scroller'>
       <?php display_row($_SESSION["rss"]); ?>
     </div>
   </div>
@@ -92,5 +93,8 @@ if (!isset($_GET["mode"])){
 
 <script>
   var resourcesLocation = '<?php echo $_SESSION['resourcesLocation'];?>'
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+  }
 </script>
-<script type="text/javascript" src="utils.js"></script>
+<script type="text/javascript" src="<?php echo $_SESSION['utilsLocation'];?>utils.js"></script>
