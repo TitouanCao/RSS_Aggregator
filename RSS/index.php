@@ -55,7 +55,7 @@ if (!isset($_GET["mode"])){
   </div>
   <div id="switcher">
     <div id="switcher-text" onclick="switch_mode()">
-      <span id="switcher-text-p">SWITCH DISPLAY</span>
+      <span id="switcher-text-p" onmousedown="return false;">SWITCH DISPLAY</span>
     </div>
     <div id="to-top" onclick="top_function()">
       <img id="to-top-arrow" src="<?php echo $_SESSION['resourcesLocation']; ?>top-arrow.png" alt="top arrow icon">
@@ -73,19 +73,19 @@ if (!isset($_GET["mode"])){
   <div id="picker">
     <img id="picker-arrow" src="<?php echo $_SESSION['resourcesLocation']; ?>bottom-right-arrow.png" alt="bottom right arrow icon">
     <form action="" method="get" class="picker-form">
-      <input type="text" name="start" value=<?php echo $start ?> class="picker-input">
-      <input type="text" name="stop" value=<?php echo $stop ?> class="picker-input">
-      <input type="submit" value="reload">
+      <input type="text" name="start" value=<?php echo $start ?> class="picker-input my_inputs" autocomplete="off">
+      <input type="text" name="stop" value=<?php echo $stop ?> class="picker-input my_inputs" autocomplete="off">
+      <input type="submit" value="RELOAD" class="my_buttons">
     </form>
   </div>
   <div id="adder">
     <img id="adder-arrow" src="<?php echo $_SESSION['resourcesLocation']; ?>top-right-arrow.png" alt="top right arrow icon">
     <form action="" method="post" class="adder-form">
-      <input type="text" name="name" placeholder="name" class="adder-input">
-      <input type="text" name="src" placeholder="url" class="adder-input">
-      <input type="text" name="twitter" placeholder="twitter" class="adder-input">
-      <input type="text" name="color" placeholder="color" class="adder-input">
-      <input type="submit" value="Create/Delete/Modify">
+      <input type="text" name="name" placeholder="Name" class="adder-input my_inputs" autocomplete="off">
+      <input type="text" name="src" placeholder="URL" class="adder-input my_inputs" autocomplete="off">
+      <input type="text" name="twitter" placeholder="Twitter link" class="adder-input my_inputs" autocomplete="off">
+      <input type="text" name="color" placeholder="Display Color" class="adder-input my_inputs" autocomplete="off">
+      <input type="submit" value="MODIFY" class="my_buttons">
     </form>
   </div>
 </body>

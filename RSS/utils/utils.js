@@ -160,7 +160,7 @@ function unclick_picker() {
   let picker = document.getElementById("picker")
   let arrow = document.getElementById("picker-arrow")
   picker.style.top = "-20px"
-  picker.style.left = "-180px"
+  picker.style.left = "-200px"
   picker.style.backgroundColor = ""
   arrow.style.opacity = "1"
   arrow.style.transition = "0.3s opacity 0.3s, 0.2s width"
@@ -171,7 +171,7 @@ function onclick_picker() {
   let arrow = document.getElementById("picker-arrow")
   picker.style.top = "0"
   picker.style.left = "0"
-  picker.style.backgroundColor = "orange"
+  picker.style.backgroundColor = "#fff828"
   arrow.style.opacity = "0"
   arrow.style.transition = "0.3s opacity, 0.2s width"
 }
@@ -191,7 +191,7 @@ function onclick_adder() {
   let arrow = document.getElementById("adder-arrow")
   adder.style.bottom = "0"
   adder.style.left = "0"
-  adder.style.backgroundColor = "orange"
+  adder.style.backgroundColor = "#fe3232"
   arrow.style.opacity = "0"
   arrow.style.transition = "0.3s opacity, 0.2s width"
 }
@@ -200,11 +200,11 @@ document.addEventListener('click', function(e) {
   let picker = document.getElementById("picker")
   let adder = document.getElementById("adder")
   let herald = document.getElementById("herald")
-    if (e.target.className == 'adder-input' || e.target.className == 'adder-form') {
+    if (e.target.className == 'adder-input my_inputs' || e.target.className == 'adder-form') {
       onclick_adder()
       unclick_picker()
     }
-    else if (e.target.className == 'picker-input' || e.target.className == 'picker-form') {
+    else if (e.target.className == 'picker-input my_inputs' || e.target.className == 'picker-form') {
       unclick_adder()
       onclick_picker()
     }
