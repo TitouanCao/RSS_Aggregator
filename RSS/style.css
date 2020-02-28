@@ -14,6 +14,30 @@
   }
 }
 
+@keyframes margin_shake {
+  0% {
+    margin-left: 0;
+  }
+  40% {
+    margin-left: 15px;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+
+@keyframes arrow_pulse {
+  0 % {
+    width: 40px;
+  }
+  40% {
+    width: 50px;
+  }
+  100% {
+    width: 40px;
+  }
+}
+
 @font-face {
   font-family: "Avenir";
   src: url("resources/avenir.otf");
@@ -30,7 +54,7 @@ body {
 #compact-container {
   position: fixed;
   top: 0;
-  left: 100vw;
+  left: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
@@ -47,24 +71,23 @@ body {
 
 .scroller {
   position: relative;
-  height: 100%;
+  height: 101.5%;
   overflow: scroll;
+
+  scroll-behavior: smooth;
 }
 
 #picker {
   position: fixed;
-  top: -30px;
+  top: -20px;
   left: -180px;
   width: 220px;
   height: 60px;
   transition: 0.4s;
-  background-color: orange;
   border-bottom-right-radius: 10px;
 }
 
 #picker:hover {
-  background-color: rgba(196, 183, 195, 0.9);
-  animation: none;
   cursor: pointer;
 }
 
@@ -76,20 +99,33 @@ body {
   padding: 15px;
 }
 
+#picker-arrow {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  width: 40px;
+  pointer-events: none;
+  transition: 0.2s;
+
+  animation: 1s ease-out infinite arrow_pulse;
+}
+
+#picker:hover #picker-arrow {
+  width: 40px;
+}
+
 #adder {
   position: fixed;
-  bottom: -210px;
+  bottom: -200px;
   left: -260px;
   width: 300px;
   height: 240px;
-  background-color: orange;
   transition: 0.5s;
   border-top-right-radius: 20px;
 }
 
 #adder:hover {
-  background-color: rgba(196, 183, 195, 0.9);
-  animation: none;
   cursor: pointer;
 }
 
@@ -106,22 +142,33 @@ body {
   height: 40px;
 }
 
+#adder-arrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 40px;
+  pointer-events: none;
+  transition: 0.2s;
+
+  animation: 1s ease-out infinite arrow_pulse;
+}
+
 #switcher {
   position: fixed;
   top: 0;
   right: 0;
-  width: 1%;
+  width: 1vw;
   height: 100%;
 
+  display: flex;
+  flex-direction: column;
+
   background-color: orange;
-  font-size: 50px;
   color: rgba(0, 0, 0, 0);
 
-  writing-mode: vertical-rl;
-  text-orientation: upright;
   text-align: center;
-
-  transition: color 0.2s 0.3s, width 0.5s, background-color 0.5s;
+  transition: 0.3s;
 }
 
 #switcher:hover {
@@ -129,7 +176,44 @@ body {
   width: 70px;
   background-color: white;
   border-left: 2px black solid;
+}
+
+#switcher:hover #to-top {
+  opacity: 1;
+}
+
+#switcher-text {
+  height: 90vh;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
   cursor: pointer;
+
+  border-bottom: 2px rgba(255, 255, 255, 0) solid;
+  transition: 0.5s;
+}
+
+#switcher-text:hover {
+  border-bottom: 10px orange solid;
+  text-shadow: 1px 1px 2px orange;
+}
+
+#to-top {
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+  margin-top: 2vh;
+  margin-bottom: 3vh;
+
+  border-radius: 10px;
+  cursor: pointer;
+  opacity: 0;
+
+  transition: 0.2s;
+}
+
+#to-top:hover {
+  box-shadow: 3px 3px 10px grey;
+  background-color: white;
 }
 
 #herald {
@@ -137,36 +221,47 @@ body {
   display: flex;
   flex-direction: row;
   top: 5%;
-  left: -33.5vw;
-  height: 90%;
-  width: 35vw;
-  transition: 1s;
-}
-
-#herald:hover {
-  left: 0;
+  left: -100vw;
+  height: 90vh;
+  max-width: 95vw;
+  transition: 0.7s;
 }
 
 #herald-core {
   position: relative;
   overflow: scroll;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: white;
   box-shadow: 3px 3px 5px grey;
+  opacity: 0.1;
+  transition: 0.2s;
+}
+
+#herald-core:hover {
+  opacity: 1;
 }
 
 #herald-name {
   text-align: center;
+  margin-top: 10px;
   padding: 10px;
   font-size: 30px;
 }
 
 #herald-horn {
-  width: 2.5vw;
+  width: 50px;
   margin-top: 40vh;
-  height: 5%;
-  background-color: orange;
+  height: 50px;
+  cursor: pointer;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
+}
+
+#herald-arrow {
+  width: 100%;
+}
+
+#herald-horn:hover #herald-arrow {
+  animation: 0.8s ease-out infinite margin_shake;
 }
 
 #herald-table {
@@ -280,11 +375,22 @@ body {
   width: 100%;
 }
 
+
+.spacer, .small-spacer {
+  border-bottom: 2px black solid;
+}
 .spacer {
   height: 5vh;
+  font-weight: bolder;
+}
+
+.small-spacer {
+  height: 4vh;
 }
 
 .audio-icon {
+  width: 40px;
+  height: 40px;
   position: absolute;
   cursor: pointer;
   margin-left: 5px;
@@ -321,7 +427,6 @@ body {
   border-radius: 10px;
 }
 
-
 .error-msg {
   position: fixed;
   z-index: 500;
@@ -351,4 +456,14 @@ body {
 
 .err-lower {
   height: 20%;
+}
+
+
+@media only screen and (max-width: 1400px) {
+
+  .audio-icon {
+    position: relative;
+    text-align: center;
+  }
+
 }

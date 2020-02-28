@@ -7,19 +7,23 @@ function get_RSS($url) {
   return $rss;
 }
 
-function unify_resources($resources) {
+function unify_resources($resources, $start, $stop) {
   $podcastArray = array();
   foreach ($resources as $source) {
     $rss = get_RSS($source->src);
+    $i = 0;
     foreach ($rss->item as $item) {
-      $podcast = feed_class_podcast($item, $source);
-      if ($podcast instanceof Podcast) {
-        array_push($podcastArray, $podcast);
+      if ($i >= $start && $i <= $stop) {
+        $podcast = feed_class_podcast($item, $source);
+        if ($podcast instanceof Podcast) {
+          array_push($podcastArray, $podcast);
+        }
+        else {
+          display_err_msg($podcast."</br>The following feed does not satisfy our requirements : ".$source->src." (".$source->name.")</br>In order to get back to normal state you may want to delete it");
+          return;
+        }
       }
-      else {
-        display_err_msg($podcast."</br>The following feed does not satisfy our requirements : ".$source->src." (".$source->name.")</br>In order to get back to normal state you may want to delete it");
-        return;
-      }
+      $i++;
     }
   }
   usort($podcastArray, "compare_podcast_date");
@@ -76,7 +80,6 @@ function feed_class_podcast($item, $source) {
 }
 
 function display_row($resources) {
-  $data = unify_resources($resources);
   $start = 0;
   $stop = 5;
   $i = 0;
@@ -87,6 +90,8 @@ function display_row($resources) {
   if (isset($_GET["stop"])) {
     $stop = $_GET["stop"];
   }
+
+  $data = unify_resources($resources, $start, $stop);
 
   echo "<table id='row-table' cellspacing='0' cellpadding='0'>
       <tr>
@@ -112,18 +117,32 @@ function display_row($resources) {
 
   $week = date("W");
   $year = date("Y");
+  $day = date("d");
+  $month = date("F");
   $first = true;
   foreach ($data as $podcast) {
     if ($i >= $start && $i <= $stop) {
+
       if ($year > $podcast->date->format("Y")) {
         $year = $podcast->date->format("Y");
         $week = $podcast->date->format("W");
       }
+
+      if ($month != $podcast->date->format("F")) {
+        $month = $podcast->date->format("F");
+      }
+
       if ($podcast->date->format("W") < $week || $first) {
         echo $podcast->to_string_table_row_week_number();
         $week = $podcast->date->format("W");
+      }
+
+      if ($day != $podcast->date->format("d") || $first) {
+        echo $podcast->to_string_table_row_day();
+        $day = $podcast->date->format("d");
         $first = false;
       }
+
       echo $podcast->to_string_table_row();
     }
     $i++;
@@ -132,7 +151,6 @@ function display_row($resources) {
 }
 
 function display_compact($resources) {
-  $data = unify_resources($resources);
   $start = 0;
   $stop = 5;
   $i = 0;
@@ -143,6 +161,8 @@ function display_compact($resources) {
   if (isset($_GET["stop"])) {
     $stop = $_GET["stop"];
   }
+
+  $data = unify_resources($resources, $start, $stop);
 
   $weeks = array();
   $week = new Week(last_day_of_the_week(new DateTime));
@@ -296,7 +316,6 @@ function move_in_the_table($prevDate, $date, $TDcounter) {
     $TDcounter = create_empty_cell(floor($diff / (24 * 3600)), $TDcounter);
     echo "<td>";
   }
-  var_dump($TDcounter);
   return $TDcounter;
 }
 
@@ -373,7 +392,7 @@ function check_gap($date1, $date2) {
 }
 
 function display_feeds() {
-  echo "<table cellspacing='0' cellpadding='0' id='herald-table'>
+  echo "<table id='herald-table' cellspacing='0' cellpadding='0' id='herald-table'>
           <tr>
             <th>
               Name

@@ -52,8 +52,13 @@ if (!isset($_GET["mode"])){
       <?php display_row($_SESSION["rss"]); ?>
     </div>
   </div>
-  <div id="switcher" onclick="switch_mode()">
-    SWITCH MODE
+  <div id="switcher">
+    <div id="switcher-text" onclick="switch_mode()">
+      <span id="switcher-text-p">SWITCH DISPLAY</span>
+    </div>
+    <div id="to-top" onclick="top_function()">
+      <img id="to-top-arrow" src="<?php echo $_SESSION['resourcesLocation']; ?>top-arrow.png" alt="top arrow icon">
+    </div>
   </div>
   <div id="herald">
     <div id="herald-core">
@@ -61,9 +66,11 @@ if (!isset($_GET["mode"])){
       <?php display_feeds(); ?>
     </div>
     <div id="herald-horn">
+      <img id="herald-arrow" src="<?php echo $_SESSION['resourcesLocation']; ?>right-arrow.png" alt="right arrow icon">
     </div>
   </div>
   <div id="picker">
+    <img id="picker-arrow" src="<?php echo $_SESSION['resourcesLocation']; ?>bottom-right-arrow.png" alt="bottom right arrow icon">
     <form action="" method="get" class="picker-form">
       <input type="text" name="start" value=<?php echo $start ?> class="picker-input">
       <input type="text" name="stop" value=<?php echo $stop ?> class="picker-input">
@@ -71,6 +78,7 @@ if (!isset($_GET["mode"])){
     </form>
   </div>
   <div id="adder">
+    <img id="adder-arrow" src="<?php echo $_SESSION['resourcesLocation']; ?>top-right-arrow.png" alt="top right arrow icon">
     <form action="" method="post" class="adder-form">
       <input type="text" name="name" placeholder="name" class="adder-input">
       <input type="text" name="src" placeholder="url" class="adder-input">
@@ -83,6 +91,6 @@ if (!isset($_GET["mode"])){
 </html>
 
 <script>
-  var resourcesLocation = "resources/"
+  var resourcesLocation = '<?php echo $_SESSION['resourcesLocation'];?>'
 </script>
 <script type="text/javascript" src="utils.js"></script>

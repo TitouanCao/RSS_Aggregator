@@ -60,6 +60,14 @@ class Podcast {
             </tr>";
   }
 
+  function to_string_table_row_day() {
+    return "<tr>
+              <td colspan='6' class='small-spacer'>
+                ".$this->date->format('D')." ".$this->date->format('d')." of ".$this->date->format('F')."
+              </td>
+            </tr>";
+  }
+
   function to_string_compact_cell() {
     if (!isset($_SESSION["resourcesLocation"])) return display_err_msg("Session not found");
     return "<div class='cell-inner-div' style='background-color:".$this->source->color.";'>
