@@ -93,6 +93,8 @@ body {
   opacity: 0;
   font-family: "Avenir";
   overflow-x: hidden;
+  overflow-y:auto;
+  overflow-y:initial;
 }
 
 
@@ -196,7 +198,7 @@ body {
 #switcher {
   position: fixed;
   top: 0;
-  right: 0;
+  right: 0.2vw;
   width: 1vw;
   height: 100%;
 
