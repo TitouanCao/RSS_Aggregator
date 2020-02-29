@@ -575,6 +575,34 @@ body {
   color: crimson;
 }
 
+#welc-textarea {
+  width: 40vw;
+  height: 20vh;
+  outline: none;
+  background-color: whitesmoke;
+  border: 2px solid #747270;
+  border-radius: 5px;
+  padding: 5px;
+  color: black;
+  font-weight: bold;
+  font-size: 1vw;
+  resize: none;
+}
+
+#welc-textarea:focus {
+  background-color: #fdf5a1;
+}
+
+#welc-textarea-button {
+  font-size: 1.5vw;
+  padding: 20px;
+}
+
+#welc-textarea-button:hover {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
 .message {
   position: fixed;
   top: 30%;

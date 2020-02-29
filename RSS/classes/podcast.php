@@ -45,7 +45,7 @@ class Podcast {
               ".$this->duration."
             </td>
             <td>
-              <a href=".$this->audioLink." download='".$this->title."mp3' target='_blank'>
+              <a href=".$this->audioLink." download='".$this->title."mp3'>
                 <img src='".$_SESSION["resourcesLocation"]."download-arrow.png' alt='download-arrow-icon' class='dld'>
               </a>
             </td>

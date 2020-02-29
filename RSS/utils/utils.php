@@ -468,7 +468,12 @@ function display_welcome_message($side) {
   }
   echo "<div class='welc-message'> <h1>Welcome to this Podcast Aggregator ! &#128515</h1>
   But as you can see there is nothing to display for now &#128543 </br>
-  Feel free to input new sources thanks to the form in the bottom left hand corner</br></br>
+  Feel free to input new sources thanks to the form in the bottom left hand corner</br>
+  You can also directly enter an array of source (do not use this functionality if you do not know what you are doing)</br>
+  <form action='' method='post'>
+    <textarea id='welc-textarea' name='loadArray' placeholder='Your Array of Sources\nSource = Name + URL + (Twitter link + Color)'></textarea></br>
+    <input id='welc-textarea-button' type='submit' value='SEND' class='my_buttons'>
+  </form>
   Here is a little tutorial of the functionning of the interface:
     <ul id='welc-list'>
       <li>Enter a brand new name and a new url to create a new feed</li>

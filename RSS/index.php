@@ -16,7 +16,9 @@ require_once("init.php");
 <body>
   <?php
     if(isset($_POST["name"]) && isset($_POST["src"]) && isset($_POST["color"]) && isset($_POST["twitter"])) {
-      check_files();
+      if (!check_files()) {
+        exit("Critical Error");
+      }
       $eval = evaluate_feed($_POST["name"], $_POST["src"], $_POST["color"], $_POST["twitter"]);
   } ?>
   <div id='compact-container'>
