@@ -61,25 +61,25 @@ class Week {
     }
     else {
       return "<tr>
-                <td>
+                <td class='compact-td'>
                 ".$this->days[0]->to_string()."
                 </td>
-                <td>
+                <td class='compact-td'>
                 ".$this->days[1]->to_string()."
                 </td>
-                <td>
+                <td class='compact-td'>
                 ".$this->days[2]->to_string()."
                 </td>
-                <td>
+                <td class='compact-td'>
                 ".$this->days[3]->to_string()."
                 </td>
-                <td>
+                <td class='compact-td'>
                 ".$this->days[4]->to_string()."
                 </td>
-                <td>
+                <td class='compact-td'>
                 ".$this->days[5]->to_string()."
                 </td>
-                <td>
+                <td class='compact-td'>
                 ".$this->days[6]->to_string()."
                 </td>
               </tr>";

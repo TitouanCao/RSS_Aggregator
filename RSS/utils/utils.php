@@ -101,22 +101,22 @@ function display_row($resources, $start, $stop) {
 
   echo "<table id='row-table' cellspacing='0' cellpadding='0'>
       <tr>
-          <th>
+          <th class='row-th'>
             Source
           </th>
-          <th>
+          <th class='row-th'>
             Publication Date
           </th>
-          <th>
+          <th class='row-th'>
             Title
           </th>
-          <th>
+          <th class='row-th'>
             MP3 file
           </th>
-          <th>
+          <th class='row-th'>
             Duration
           </th>
-          <th>
+          <th class='row-th'>
             Download
           </th>
         </tr>";
@@ -183,25 +183,25 @@ function display_compact($resources, $start, $stop) {
 
   echo "<table id='compact-table' cellspacing='0' cellpadding='0'>
       <tr>
-          <th>
+          <th class='compact-th'>
             Monday
           </th>
-          <th>
+          <th class='compact-th'>
             Tuesday
           </th>
-          <th>
+          <th class='compact-th'>
             Wednesday
           </th>
-          <th>
+          <th class='compact-th'>
             Thursday
           </th>
-          <th>
+          <th class='compact-th'>
             Friday
           </th>
-          <th>
+          <th class='compact-th'>
             Saturday
           </th>
-          <th>
+          <th class='compact-th'>
             Sunday
           </th>
         </tr>";

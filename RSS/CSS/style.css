@@ -328,7 +328,14 @@ body {
 }
 
 #compact-table th {
+  background-color: white;
   padding: 25px;
+
+  z-index: 1;
+  position: sticky;
+  top:0;
+
+  transition: 1s background-color, 0.3s padding;
 }
 
 #compact-table th, #compact-table td  {
@@ -344,33 +351,36 @@ body {
   max-width: 15vw;
 }
 
-#compact-table td a {
-  text-decoration: none;
-  color: black;
+.cell-outer-div {
+  overflow: hidden;
+  height: 60px;
+  transition: 0.3s ease-out;
+}
+
+.cell-outer-div:hover {
+  border-top: 1px black solid;
+}
+
+.cell-outer-div:hover .compact-title {
+  opacity: 1;
 }
 
 .cell-inner-div {
-  padding: 5px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  transition: 0.3s;
-}
-
-.cell-inner-div:hover {
-  box-shadow: 3px 3px 10px black;
+  padding: 20px;
 }
 
 .compact-span {
-  padding-top: 20px;
   padding-bottom: 20px;
+  cursor: default;
 }
 
-.compact-a {
-  padding-bottom: 10px;
+.compact-title {
   font-weight: bold;
+  opacity: 0;
+  transition: 0.5s;
 }
 
-.compact-a a {
+.compact-title a {
   text-decoration: none;
   color: black;
 }
@@ -386,7 +396,15 @@ body {
 }
 
 #row-table th {
+  background-color: white;
   padding: 25px;
+  border-bottom: 2px black solid;
+
+  z-index: 1;
+  position: sticky;
+  top:0;
+
+  transition: 1s background-color, 0.3s padding;
 }
 
 #row-table td {
@@ -433,7 +451,6 @@ body {
   height: 40px;
   position: absolute;
   cursor: pointer;
-  margin-left: 5px;
   padding: 5px;
   transition: 0.2s;
 }
@@ -596,10 +613,26 @@ body {
   z-index: 10;
 
   position: absolute;
-  top: 125%;
-  left: 0;
   opacity: 0;
   transition: opacity 0.2s;
+}
+
+.tooltip .tooltip-row {
+  width: 100%;
+  top: 125%;
+  left: 0;
+}
+
+.tooltip .tooltip-compact-left {
+  width: 100%;
+  top: -20%;
+  left: 110%;
+}
+
+.tooltip .tooltip-compact-right {
+  width: 100%;
+  top: -20%;
+  right: 110%;
 }
 
 .tooltip:hover .tooltip-text {

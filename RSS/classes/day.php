@@ -19,7 +19,9 @@ class Day {
     $string = "";
     foreach ($this->events as $value) {
       if ($value instanceof Podcast){
-        $string = $string."".$value->to_string_compact_cell();
+        $string = $string."<div class='cell-outer-div' onmouseenter='unfold(this)' onmouseleave='fold(this)'>
+                            ".$value->to_string_compact_cell()."
+                          </div>";
       }
       else {
         display_err_msg("Illegal State");

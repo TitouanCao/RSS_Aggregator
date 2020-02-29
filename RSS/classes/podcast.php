@@ -32,7 +32,7 @@ class Podcast {
               <a href=".$this->pageLink." target='_blank'>
                 <div class='tooltip'>
                 <span class='text-expander'>".$this->title."</span>
-                <span class=' tooltip-text'> ".$this->description."</span>
+                <span class=' tooltip-text tooltip-row'> ".$this->description."</span>
                 </div>
               </a>
             </td>
@@ -75,16 +75,18 @@ class Podcast {
 
   function to_string_compact_cell() {
     if (!isset($_SESSION["resourcesLocation"])) return display_err_msg("Session not found");
-    return "<div class='cell-inner-div' style='background-color:".$this->source->color.";'>
-              <div id=".spl_object_hash($this)." class='audio-icon' onclick='switch_audio(this.id)'>
-                <img src='".$_SESSION["resourcesLocation"]."play.png' alt='audio situation icon' width='40px'>
-              </div>
+    if ($this->date->format("D") == "Sun") $tooltipClass = "right";
+    else $tooltipClass = "left";
+    return "<div id=".spl_object_hash($this)." class='audio-icon' onclick='switch_audio(this.id)'>
+              <img src='".$_SESSION["resourcesLocation"]."play.png' alt='audio situation icon' width='40px'>
+            </div>
+            <div class='cell-inner-div' style='background-color:".$this->source->color.";' onmousedown='return false;'>
               <div class='compact-span'>".$this->date->format("d F Y")."</div>
-              <div class='compact-a'>
+              <div class='compact-title'>
                 <a href='$this->pageLink' target='_blank'>
                   <div class='tooltip'>
                   ".$this->title."
-                  <span class='tooltip-text'>".$this->description."</span>
+                  <span class='tooltip-text tooltip-compact-".$tooltipClass."'>".$this->description."</span>
                   </div>
                 </a>
               </div>

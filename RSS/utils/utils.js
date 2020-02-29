@@ -1,16 +1,17 @@
 const [red, green, blue] = [255, 165, 0]
-const scroller = document.getElementsByClassName("scroller")[1]
+const scroller_row = document.getElementsByClassName("scroller")[1]
+const scroller_compact = document.getElementsByClassName("scroller")[0]
 const small_spacers = document.getElementsByClassName("small-spacer")
 const spacers = document.getElementsByClassName("spacer")
 let max = window.innerHeight
-//Dev data
-let counter = 0
-//Dev data
 
 
 adjust_herald_position()
 adjust_font_size()
 color_spacers()
+set_header_row()
+set_header_compact();
+set_compact_td_size()
 
 window.onload = function() {
   var cookie = decodeURIComponent(document.cookie).split(';')
@@ -23,6 +24,91 @@ window.onload = function() {
     body[i].style.opacity = "1"
   }
 }
+
+/*------------------------------------------*/
+
+function adjust_font_size() {
+  let text = document.getElementById("switcher-text-p")
+  let nbCharacters = text.innerHTML.length + 1
+  text.style.fontSize = (window.innerHeight*0.9)/nbCharacters+"px"
+}
+
+function adjust_herald_position() {
+  let herald = document.getElementById("herald")
+  herald.style.left = -document.getElementById("herald-core").offsetWidth+"px"
+}
+
+function color_spacers() {
+  for (var i = 0; i < small_spacers.length; i++) {
+    let position = small_spacers[i].offsetTop - scroller_row.scrollTop
+    if (position > 0 && position < max) {
+      position = position / (max / 3)
+      let [r, g, b] = [red, green/position, blue/position].map(Math.round)
+      small_spacers[i].style.backgroundColor = "rgb("+r+","+g+","+b+")"
+    }
+  }
+
+  for (var i = 0; i < spacers.length; i++) {
+    let position = spacers[i].offsetTop - scroller_row.scrollTop
+    if (position > 0 && position < max) {
+      position = position / (max / 3)
+      let [r, g, b] = [red, green/position, blue/position].map(Math.round)
+      spacers[i].style.backgroundColor = "rgb("+r+","+g+","+b+")"
+    }
+  }
+}
+
+function set_header_row() {
+  if (scroller_row.scrollTop == 0) {
+    let header = document.getElementsByClassName("row-th")
+    for (var i = 0; i < header.length; i++) {
+      header[i].style.backgroundColor = '#fff828'
+      header[i].style.padding = "25px"
+    }
+  }
+  else {
+    let header = document.getElementsByClassName("row-th")
+    for (var i = 0; i < header.length; i++) {
+      header[i].style.backgroundColor = 'white'
+      header[i].style.paddingTop = "10px"
+      header[i].style.paddingBottom = "10px"
+    }
+  }
+}
+
+function set_header_compact() {
+  if (scroller_compact.scrollTop == 0) {
+    let header = document.getElementsByClassName("compact-th")
+    for (var i = 0; i < header.length; i++) {
+      header[i].style.backgroundColor = '#fff828'
+      header[i].style.padding = "25px"
+    }
+  }
+  else {
+    let header = document.getElementsByClassName("compact-th")
+    for (var i = 0; i < header.length; i++) {
+      header[i].style.backgroundColor = 'white'
+      header[i].style.paddingTop = "10px"
+      header[i].style.paddingBottom = "10px"
+    }
+  }
+}
+
+function set_compact_td_size() {
+  let tds = document.getElementsByClassName("compact-td")
+  for (var i = 0; i < tds.length; i++) {
+    let max = 0;
+    for (var j = 0; j < tds[i].children.length; j++) {
+      if (tds[i].children[j].children[1].offsetHeight > max) {
+        max = tds[i].children[j].children[1].offsetHeight;
+      }
+    }
+    tds[i].style.height = tds[i].children.length*50 + (max*1.5)  + "px"
+  }
+}
+
+
+
 
 function hide_message() {
   let msgs = document.getElementsByClassName("message")
@@ -97,30 +183,15 @@ function switch_mode(quick = false) {
   }
 }
 
-function color_spacers() {
-  for (var i = 0; i < small_spacers.length; i++) {
-    let position = small_spacers[i].offsetTop - scroller.scrollTop
-    if (position > 0 && position < max) {
-      //Dev data
-      counter++
-      //Dev data
-      position = position / (max / 3)
-      let [r, g, b] = [red, green/position, blue/position].map(Math.round)
-      small_spacers[i].style.backgroundColor = "rgb("+r+","+g+","+b+")"
-    }
-  }
+function fold(element) {
+  element.style.height = "60px"
+  element.style.overflow = "hidden"
+}
 
-  for (var i = 0; i < spacers.length; i++) {
-    let position = spacers[i].offsetTop - scroller.scrollTop
-    if (position > 0 && position < max) {
-      //Dev data
-      counter++;
-      //Dev data
-      position = position / (max / 3)
-      let [r, g, b] = [red, green/position, blue/position].map(Math.round)
-      spacers[i].style.backgroundColor = "rgb("+r+","+g+","+b+")"
-    }
-  }
+function unfold(element) {
+  let child = element.children[1]
+  element.style.height = child.offsetHeight+"px"
+  element.style.overflow = "visible"
 }
 
 function switch_audio(element) {
@@ -149,17 +220,6 @@ function top_function() {
   Array.prototype.forEach.call(elements, function(elements) {
     elements.scrollTop = 0
   });
-}
-
-function adjust_font_size() {
-  let text = document.getElementById("switcher-text-p")
-  let nbCharacters = text.innerHTML.length + 1
-  text.style.fontSize = (window.innerHeight*0.9)/nbCharacters+"px"
-}
-
-function adjust_herald_position() {
-  let herald = document.getElementById("herald")
-  herald.style.left = -document.getElementById("herald-core").offsetWidth+"px"
 }
 
 function unclick_picker() {
@@ -238,6 +298,11 @@ window.addEventListener("resize", function(e){
   }, 700);
 }, false);
 
-scroller.addEventListener("scroll", function(e) {
+scroller_row.addEventListener("scroll", function(e) {
   color_spacers()
+  set_header_row();
+}, false);
+
+scroller_compact.addEventListener("scroll", function(e) {
+  set_header_compact();
 }, false);
