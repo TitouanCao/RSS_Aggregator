@@ -75,7 +75,7 @@ class Podcast {
 
   function to_string_compact_cell() {
     if (!isset($_SESSION["resourcesLocation"])) return display_err_msg("Session not found");
-    if ($this->date->format("D") == "Sun") $tooltipClass = "right";
+    if ($this->date->format("D") == "Sun" || $this->date->format("D") == "Sat" || $this->date->format("D") == "Fri") $tooltipClass = "right";
     else $tooltipClass = "left";
     return "<div id=".spl_object_hash($this)." class='audio-icon' onclick='switch_audio(this.id)'>
               <img src='".$_SESSION["resourcesLocation"]."play.png' alt='audio situation icon' width='40px'>
