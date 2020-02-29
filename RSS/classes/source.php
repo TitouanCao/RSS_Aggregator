@@ -45,7 +45,7 @@ class Source {
   }
 
   function is_same_name($source) {
-    return trim($this->name) == trim($source->name);
+    return mb_strtolower(trim($this->name)) == mb_strtolower(trim($source->name));
   }
 
 }

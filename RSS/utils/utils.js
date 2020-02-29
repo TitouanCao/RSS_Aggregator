@@ -24,6 +24,12 @@ window.onload = function() {
   }
 }
 
+function hide_message() {
+  let msgs = document.getElementsByClassName("message")
+  for (var i = 0; i < msgs.length; i++) {
+    msgs[i].style.display = "none"
+  }
+}
 
 function get_rand_color() {
   let carac = "0123456789ABCDEF"

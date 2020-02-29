@@ -9,6 +9,9 @@ function get_RSS($url) {
 
 function unify_resources($resources, $start, $stop) {
   $podcastArray = array();
+  if ($resources == null) {
+    return false;
+  }
   foreach ($resources as $source) {
     if ($source instanceof Source) {
       try {
@@ -52,33 +55,32 @@ function feed_class_podcast($item, $source) {
           else {
             $description = $item->description;
           }
-            if (isset($item->link)) {
-              if (isset($item->enclosure->attributes()['url'])) {
-                if (preg_match("#durée : [0-9][0-9]:[0-9][0-9]:[0-9][0-9]#", $description[0])) {
-                  $duration = substr($item->description, 8, 8);
-                }
-                else if (isset($item->children()->{'itunes:duration'})) {
-                  if (preg_match("#[0-9][0-9]:[0-9][0-9]:[0-9][0-9]#", $item->children()->{'itunes:duration'}))
-                    $duration = $item->children()->{'itunes:duration'};
-                  else if (preg_match("#[0-9][0-9]:[0-9][0-9]#", $item->children()->{'itunes:duration'})){
-                    $duration = parse_duration_two_digits_less($item->children()->{'itunes:duration'});
-                  }
-                  else {
-                    $duration = parse_duration_seconds($item->children()->{'itunes:duration'});
-                  }
-                }
-                else {
-                  $error = "Description or Duration field does not correspond to what is expected, or duration format not found";
-                  return $error;
-                }
-                $podcast = new Podcast($item->title, $date, $description, $item->link, $item->enclosure->attributes()['url'], $duration, $source);
-                return $podcast;
-              }
-              else $error = "Audio resource link not found in the provided object";
-            }
-            else $error = "Page link not found in the provided object";
         }
-        else $error = "Description not found in the provided object";
+        else if (isset($item->children()->{'itunes:summary'})) {
+          $description = $item->children()->{'itunes:summary'};
+        }
+        if (isset($item->enclosure->attributes()['url'])) {
+          if (preg_match("#durée : [0-9][0-9]:[0-9][0-9]:[0-9][0-9]#", $description[0])) {
+            $duration = substr($item->description, 8, 8);
+          }
+          else if (isset($item->children()->{'itunes:duration'})) {
+            if (preg_match("#[0-9][0-9]:[0-9][0-9]:[0-9][0-9]#", $item->children()->{'itunes:duration'}))
+              $duration = $item->children()->{'itunes:duration'};
+            else if (preg_match("#[0-9][0-9]:[0-9][0-9]#", $item->children()->{'itunes:duration'})){
+              $duration = parse_duration_two_digits_less($item->children()->{'itunes:duration'});
+            }
+            else {
+              $duration = parse_duration_seconds($item->children()->{'itunes:duration'});
+            }
+          }
+          else {
+            $error = "Description or Duration field does not correspond to what is expected, or duration format not found";
+            return $error;
+          }
+          $podcast = new Podcast($item->title, $date, $description, $item->link, $item->enclosure->attributes()['url'], $duration, $source);
+          return $podcast;
+        }
+        else $error = "Audio resource link not found in the provided object";
       }
       else $error = "Publication date did not fit the DateTime class requirements";
     }
@@ -89,19 +91,13 @@ function feed_class_podcast($item, $source) {
   return $error;
 }
 
-function display_row($resources) {
-  $start = 0;
-  $stop = 5;
-  $i = 0;
-
-  if (isset($_GET["start"])) {
-    $start = $_GET["start"];
-  }
-  if (isset($_GET["stop"])) {
-    $stop = $_GET["stop"];
-  }
-
+function display_row($resources, $start, $stop) {
   $data = unify_resources($resources, $start, $stop);
+  if ($data == false) {
+    display_welcome_message("Row");
+    return false;
+  }
+  $i = 0;
 
   echo "<table id='row-table' cellspacing='0' cellpadding='0'>
       <tr>
@@ -160,19 +156,13 @@ function display_row($resources) {
   echo "</table>";
 }
 
-function display_compact($resources) {
-  $start = 0;
-  $stop = 5;
-  $i = 0;
-
-  if (isset($_GET["start"])) {
-    $start = $_GET["start"];
-  }
-  if (isset($_GET["stop"])) {
-    $stop = $_GET["stop"];
-  }
-
+function display_compact($resources, $start, $stop) {
   $data = unify_resources($resources, $start, $stop);
+  if ($data == false) {
+    display_welcome_message("Compact");
+    return false;
+  }
+  $i = 0;
 
   $weeks = array();
   $week = new Week(last_day_of_the_week(new DateTime));
@@ -180,7 +170,7 @@ function display_compact($resources) {
     if ($i >= $start && $i <= $stop) {
       if (check_one_week_gap($week->lastDay, $podcast->date)) {
         $gap = check_gap($week->lastDay, $podcast->date);
-        for ($j = 6; $j < $gap; $j += 7){
+        for ($j = 0; $j < $gap; $j += 7){
           array_push($weeks, $week);
           $week = new Week($week->lastDay->modify("-7 day"));
         }
@@ -226,12 +216,12 @@ function evaluate_feed($name, $src, $color, $twitter) {
   if ($name == "" && $src == "" && $color == "" && $twitter == "") return "Empty";
   $source = new Source($name, $src, $color, $twitter);
   foreach ($_SESSION["rss"] as $key => $value) {
-    if ($source->is_same_feed($value)) {
-      delete_feed($key);
-      return;
-    }
     if ($source->is_same_name($value)) {
       modificate_feed($source, $key);
+      return;
+    }
+    if ($source->is_same_feed($value)) {
+      delete_feed($key);
       return;
     }
   }
@@ -248,38 +238,54 @@ function add_new_feed($source) {
     }
     array_push($_SESSION["rss"], $source);
     write_source_file($_SESSION["rss"]);
+    display_message("\"".$source->name."\" has been added");
   }
+  else display_message("The inputted data is incorrect</br>Nothing done");
 }
 
 function delete_feed($key) {
+  $name = $_SESSION["rss"][$key]->name;
   unset($_SESSION["rss"][$key]);
   write_source_file($_SESSION['rss']);
+  display_message("\"".$name."\" has been DELETED");
 }
 
 function modificate_feed($source, $key) {
+  $string = "";
   if ($source->is_correct()) {
     $_SESSION["rss"][$key]->src = $source->src;
+    $string = "URL &#8594 ".$_SESSION["rss"][$key]->src;
   }
   if ($source->has_color()) {
     $_SESSION["rss"][$key]->color = $source->color;
+    if ($string != "") $string = $string."</br>& COLOR &#8594 ".$_SESSION['rss'][$key]->color;
+    else $string = $string."COLOR &#8594 ".$_SESSION['rss'][$key]->color;
   }
   if ($source->has_twitter()) {
     $_SESSION["rss"][$key]->twitter = $source->twitter;
+    if ($string != "") $string = $string."</br>& TWITTER LINK &#8594 ".$_SESSION["rss"][$key]->twitter;
+    else $string = $string."TWITTER LINK &#8594 ".$_SESSION["rss"][$key]->twitter;
   }
   write_source_file($_SESSION["rss"]);
+  if ($string == "") display_message("No modification done");
+  else display_message($string."</br>of \"".$_SESSION["rss"][$key]->name."\" UPDATED");
 }
 
 
 function write_source_file($data) {
-  file_put_contents($_SESSION["saveLocation"]."feeds.php", '<?php $_SESSION["rss"] = array(');
-  $last = count($data);
-  $current = 1;
-  foreach($data as $source) {
-    file_put_contents($_SESSION["saveLocation"]."feeds.php", "new Source(".$source->to_string().")", FILE_APPEND);
-    if ($current != $last) file_put_contents($_SESSION["saveLocation"]."feeds.php", ",", FILE_APPEND);
-    $current++;
+  try {
+    file_put_contents($_SESSION["saveLocation"]."feeds.php", '<?php $_SESSION["rss"] = array(');
+    $last = count($data);
+    $current = 1;
+    foreach($data as $source) {
+      file_put_contents($_SESSION["saveLocation"]."feeds.php", "new Source(".$source->to_string().")", FILE_APPEND);
+      if ($current != $last) file_put_contents($_SESSION["saveLocation"]."feeds.php", ",", FILE_APPEND);
+      $current++;
+    }
+    file_put_contents($_SESSION["saveLocation"]."feeds.php", '); ?>', FILE_APPEND);
+  } catch (Exception $e) {
+    display_err_msg("Access to the destination missing</br></br>".$e);
   }
-  file_put_contents($_SESSION["saveLocation"]."feeds.php", '); ?>', FILE_APPEND);
 }
 
 function parse_duration_seconds($seconds) {
@@ -451,6 +457,51 @@ function display_feeds() {
   echo "</table>";
 }
 
+function display_welcome_message($side) {
+  if ($_SESSION['start'] > $_SESSION['stop']) {
+    $string = "</br>(which means you will not display anything)";
+  }
+  else {
+    if ($_SESSION['start'] < 0) $string = $_SESSION['stop'] + 1;
+    else $string = $_SESSION['stop'] - $_SESSION['start'] + 1;
+    $string = "</br>(so you will display ".$string." podcasts)";
+  }
+  echo "<div class='welc-message'> <h1>Welcome to this Podcast Aggregator ! &#128515</h1>
+  But as you can see there is nothing to display for now &#128543 </br>
+  Feel free to input new sources thanks to the form in the bottom left hand corner</br></br>
+  Here is a little tutorial of the functionning of the interface:
+    <ul id='welc-list'>
+      <li>Enter a brand new name and a new url to create a new feed</li>
+      <li>If you do not pick a color, there will not have any. In order to keep a clear display you should pick one</li>
+      <li>The Twitter field is optional</li>
+      <li>If you enter an url that is already used, you will delete the corresponding feed</li>
+      <li>If you enter a name that is already used, you will update the corresponding feed</li>
+      <li>Modification has priority over deletion</li>
+      <li>The arrow on the left brings the list of all the registered feeds</li>
+      <li>The form on the top left hand corner allow you to limit your research</br>(from the left input to the right one, ex: 5-20 &#8594; the 16 podcasts from 5th to 20th)</li>
+      <li>If you move your cursor on the right side you get two buttons:</li>
+      <ul>
+        <li>At the top (90% of the height) you can switch from row display mode to compact display mode</li>
+        <li>At the bottom you have a button to go back to the top of the page</li>
+      </ul>
+    </ul>
+    <h2>You can try the buttons and see the result below:</h2>
+    Your are currenlty on the ".$side." Display ! </br>
+    You chose to display podcasts from ".$_SESSION['start']." to ".$_SESSION['stop']."".$string."</br>
+    &#x26A0;&#xFE0F; But you will not be able to see this message any longer as soon as you enter a correct source &#x26A0;&#xFE0F; </br></br>
+    ---------------------------
+    <h3>&#x26A0;&#xFE0F; Can only read RSS designed for podcasts &#x26A0;&#xFE0F; </br>
+        &#x26A0;&#xFE0F; May not be able to read every RSS files (see displayed errors) &#x26A0;&#xFE0F;</br>
+        &#x26A0;&#xFE0F; Some RSS files may not give a great display &#x26A0;&#xFE0F;</h3>
+    </div>";
+}
+
+function display_message($text) {
+  echo "<div class='message' onclick='hide_message()'>
+          ".$text."
+          </br>CLICK to close
+        </div>";
+}
 
 function display_err_msg($text) {
   echo "<div class='error-msg' onclick='hide_err_msg()'>

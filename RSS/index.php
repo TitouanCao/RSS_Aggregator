@@ -1,38 +1,9 @@
 <?php
-session_start();
 
-require_once("vars.php");
-
-require_once($_SESSION["classesLocation"]."day.php");
-require_once($_SESSION["classesLocation"]."week.php");
-require_once($_SESSION["classesLocation"]."source.php");
-require_once($_SESSION["classesLocation"]."podcast.php");
-
-require_once($_SESSION["saveLocation"]."feeds.php");
-
-require_once($_SESSION["utilsLocation"]."utils.php");
-
-if (isset($_GET["start"])) {
-  $start = $_GET["start"];
-}
-else $start = 0;
-
-if (isset($_GET["stop"])) {
-  $stop = $_GET["stop"];
-}
-else $stop = 5;
-
-if(isset($_POST["name"]) && isset($_POST["src"]) && isset($_POST["color"]) && isset($_POST["twitter"])) {
-  $eval = evaluate_feed($_POST["name"], $_POST["src"], $_POST["color"], $_POST["twitter"]);
-}
-
-if (!isset($_GET["mode"])){
-  $_GET["mode"] = "row";
-}
+require_once("init.php");
 
 //podcast.mp3: Audio file with ID3 version 2.3.0, contains:MPEG ADTS, layer III, v1, 128 kbps, 44.1 kHz, Stereo
 ?>
-
 
 
 <html>
@@ -43,14 +14,18 @@ if (!isset($_GET["mode"])){
   <link rel="stylesheet" type="text/css" href="CSS/style.css">
 </head>
 <body>
+  <?php
+    if(isset($_POST["name"]) && isset($_POST["src"]) && isset($_POST["color"]) && isset($_POST["twitter"])) {
+      $eval = evaluate_feed($_POST["name"], $_POST["src"], $_POST["color"], $_POST["twitter"]);
+  } ?>
   <div id='compact-container'>
     <div class='scroller'>
-      <?php display_compact($_SESSION["rss"]); ?>
+      <?php display_compact($_SESSION["rss"], $_SESSION["start"], $_SESSION["stop"]); ?>
     </div>
   </div>
   <div id='row-container'>
     <div class='scroller'>
-      <?php display_row($_SESSION["rss"]); ?>
+      <?php display_row($_SESSION["rss"], $_SESSION["start"], $_SESSION["stop"]); ?>
     </div>
   </div>
   <div id="switcher">
@@ -73,8 +48,8 @@ if (!isset($_GET["mode"])){
   <div id="picker">
     <img id="picker-arrow" src="<?php echo $_SESSION['resourcesLocation']; ?>bottom-right-arrow.png" alt="bottom right arrow icon">
     <form action="" method="get" class="picker-form">
-      <input type="text" name="start" value=<?php echo $start ?> class="picker-input my_inputs" autocomplete="off">
-      <input type="text" name="stop" value=<?php echo $stop ?> class="picker-input my_inputs" autocomplete="off">
+      <input type="text" name="start" value=<?php echo $_SESSION["start"]; ?> class="picker-input my_inputs" autocomplete="off">
+      <input type="text" name="stop" value=<?php echo $_SESSION["stop"]; ?> class="picker-input my_inputs" autocomplete="off">
       <input type="submit" value="RELOAD" class="my_buttons">
     </form>
   </div>
@@ -85,7 +60,7 @@ if (!isset($_GET["mode"])){
       <input type="text" name="src" placeholder="URL" class="adder-input my_inputs" autocomplete="off">
       <input type="text" name="twitter" placeholder="Twitter link" class="adder-input my_inputs" autocomplete="off">
       <input type="text" name="color" placeholder="Display Color" class="adder-input my_inputs" autocomplete="off">
-      <input type="submit" value="MODIFY" class="my_buttons">
+      <input type="submit" value="SEND" class="my_buttons">
     </form>
   </div>
 </body>

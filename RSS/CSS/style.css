@@ -1,3 +1,37 @@
+/* Generated with Bounce.js. Edit at http://bouncejs.com#%7Bs%3A%5B%7BT%3A%22t%22%2Ce%3A%22b%22%2Cd%3A1000%2CD%3A0%2Cf%3A%7Bx%3A-200%2Cy%3A0%7D%2Ct%3A%7Bx%3A0%2Cy%3A0%7D%2Cs%3A3%2Cb%3A4%7D%2C%7BT%3A%22k%22%2Ce%3A%22b%22%2Cd%3A1000%2CD%3A0%2Cf%3A%7Bx%3A40%2Cy%3A0%7D%2Ct%3A%7Bx%3A0%2Cy%3A0%7D%2Cs%3A3%2Cb%3A4%7D%5D%7D */
+
+@-webkit-keyframes animation {
+  0% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.839, 1, 0, 0, 0, 0, 1, 0, -200, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.839, 1, 0, 0, 0, 0, 1, 0, -200, 0, 0, 1); }
+  4.3% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.353, 1, 0, 0, 0, 0, 1, 0, -97.146, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.353, 1, 0, 0, 0, 0, 1, 0, -97.146, 0, 0, 1); }
+  8.61% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.085, 1, 0, 0, 0, 0, 1, 0, -24.283, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.085, 1, 0, 0, 0, 0, 1, 0, -24.283, 0, 0, 1); }
+  12.91% { -webkit-transform: matrix3d(1, 0, 0, 0, -0.037, 1, 0, 0, 0, 0, 1, 0, 10.455, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, -0.037, 1, 0, 0, 0, 0, 1, 0, 10.455, 0, 0, 1); }
+  17.22% { -webkit-transform: matrix3d(1, 0, 0, 0, -0.065, 1, 0, 0, 0, 0, 1, 0, 18.667, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, -0.065, 1, 0, 0, 0, 0, 1, 0, 18.667, 0, 0, 1); }
+  28.33% { -webkit-transform: matrix3d(1, 0, 0, 0, -0.014, 1, 0, 0, 0, 0, 1, 0, 4.125, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, -0.014, 1, 0, 0, 0, 0, 1, 0, 4.125, 0, 0, 1); }
+  39.44% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.004, 1, 0, 0, 0, 0, 1, 0, -1.246, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.004, 1, 0, 0, 0, 0, 1, 0, -1.246, 0, 0, 1); }
+  61.66% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0.083, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0.083, 0, 0, 1); }
+  83.98% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -0.006, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -0.006, 0, 0, 1); }
+  100% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+}
+
+@keyframes animation {
+  0% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.839, 1, 0, 0, 0, 0, 1, 0, -200, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.839, 1, 0, 0, 0, 0, 1, 0, -200, 0, 0, 1); }
+  4.3% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.353, 1, 0, 0, 0, 0, 1, 0, -97.146, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.353, 1, 0, 0, 0, 0, 1, 0, -97.146, 0, 0, 1); }
+  8.61% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.085, 1, 0, 0, 0, 0, 1, 0, -24.283, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.085, 1, 0, 0, 0, 0, 1, 0, -24.283, 0, 0, 1); }
+  12.91% { -webkit-transform: matrix3d(1, 0, 0, 0, -0.037, 1, 0, 0, 0, 0, 1, 0, 10.455, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, -0.037, 1, 0, 0, 0, 0, 1, 0, 10.455, 0, 0, 1); }
+  17.22% { -webkit-transform: matrix3d(1, 0, 0, 0, -0.065, 1, 0, 0, 0, 0, 1, 0, 18.667, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, -0.065, 1, 0, 0, 0, 0, 1, 0, 18.667, 0, 0, 1); }
+  28.33% { -webkit-transform: matrix3d(1, 0, 0, 0, -0.014, 1, 0, 0, 0, 0, 1, 0, 4.125, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, -0.014, 1, 0, 0, 0, 0, 1, 0, 4.125, 0, 0, 1); }
+  39.44% { -webkit-transform: matrix3d(1, 0, 0, 0, 0.004, 1, 0, 0, 0, 0, 1, 0, -1.246, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0.004, 1, 0, 0, 0, 0, 1, 0, -1.246, 0, 0, 1); }
+  61.66% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0.083, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0.083, 0, 0, 1); }
+  83.98% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -0.006, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -0.006, 0, 0, 1); }
+  100% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+}
+
+
+
+
+
+
+
 @keyframes danger_color_switch {
   0% {
     background-color: red;
@@ -94,11 +128,8 @@ body {
   left: -200px;
   width: 240px;
   height: 60px;
-  transition: 0.4s;
+  transition: 0.2s ease-out;
   border-bottom-right-radius: 10px;
-}
-
-#picker:hover {
   cursor: pointer;
 }
 
@@ -132,11 +163,8 @@ body {
   left: -260px;
   width: 300px;
   height: 240px;
-  transition: 0.5s;
+  transition: 0.2s ease-out;
   border-top-right-radius: 20px;
-}
-
-#adder:hover {
   cursor: pointer;
 }
 
@@ -179,7 +207,7 @@ body {
   color: rgba(0, 0, 0, 0);
 
   text-align: center;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 #switcher:hover {
@@ -471,7 +499,6 @@ body {
 
 .error-msg {
   position: fixed;
-  z-index: 500;
   top: 0;
   left: 0;
   width: 100%;
@@ -502,6 +529,84 @@ body {
 .err-stop {
   cursor: pointer;
   height: 5%;
+}
+
+.welc-message {
+  width: 90%;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2vh;
+  font-weight: bolder;
+  font-size: 1.5vw;
+  text-align: center;
+  line-height: 5vh;
+}
+
+#welc-list {
+  list-style-type: "\1F44D";
+  text-align: left;
+  margin-left: 10vw;
+}
+
+#welc-list ul {
+  list-style-type: circle;
+}
+
+.welc-message h3 {
+  color: crimson;
+}
+
+.message {
+  position: fixed;
+  top: 30%;
+  left: 30%;
+  width: 40%;
+  background-color: white;
+  border-radius: 20px;
+  border: 1px black solid;
+  font-size: 1.5vw;
+  text-align: center;
+  line-height: 5vh;
+  z-index: 50;
+  padding: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.message:hover {
+  background-color: #fe4f30;
+  color: white;
+}
+
+.text-expander {
+  padding-top: 10px;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  background-color: #747270;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+  z-index: 10;
+
+  position: absolute;
+  top: 125%;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  -webkit-animation: animation 500ms linear both;
+  animation: animation 500ms linear both;
 }
 
 

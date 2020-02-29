@@ -29,7 +29,12 @@ class Podcast {
               ".$this->date->format("Y, D d \of F, \a\\t G:i:s")."
             </td>
             <td>
-              <a href=".$this->pageLink." target='_blank'><span title='".$this->description."'>".$this->title."</span></a>
+              <a href=".$this->pageLink." target='_blank'>
+                <div class='tooltip'>
+                <span class='text-expander'>".$this->title."</span>
+                <span class=' tooltip-text'> ".$this->description."</span>
+                </div>
+              </a>
             </td>
             <td>
               <audio controls preload='none' src=".$this->audioLink.">
@@ -75,7 +80,14 @@ class Podcast {
                 <img src='".$_SESSION["resourcesLocation"]."play.png' alt='audio situation icon' width='40px'>
               </div>
               <div class='compact-span'>".$this->date->format("d F Y")."</div>
-              <div class='compact-a'><a href='$this->pageLink' target='_blank'><span title='".$this->description."'>".$this->title."</span></a></div>
+              <div class='compact-a'>
+                <a href='$this->pageLink' target='_blank'>
+                  <div class='tooltip'>
+                  ".$this->title."
+                  <span class='tooltip-text'>".$this->description."</span>
+                  </div>
+                </a>
+              </div>
               <audio preload='none' src=".$this->audioLink.">
                 Your browser does not support the audio element.
               </audio>
