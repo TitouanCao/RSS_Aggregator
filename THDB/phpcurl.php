@@ -1,6 +1,6 @@
 <?php
 require_once("tp3-helpers.php");
-			if(isset($argv[1])){//Le premier argument est là pour signaler la langue qu'on veut utiliser pour le film : par exemple : language=fr ou language=en.
+			if(isset($argv[1])){//Le deuxième argument est là pour signaler la langue qu'on veut utiliser pour le film : par exemple : language=fr ou language=en.
 				$split = explode("=", $argv[1]);
 				$array = array('language' => $split[1]);
 			}
