@@ -59,7 +59,7 @@ function check_files() {
 }
 
 function load_array($array) {
-  if (file_put_contents($_SESSION["saveLocation"]."feeds.php", '<?php $_SESSION["rss"] = '.$array.'; ?>') === false) {
+  if (file_put_contents($_SESSION["saveLocation"]."feeds.php", '<?php $_SESSION["rss"] = array('.$array.'); ?>') === false) {
     display_err_msg("This error occured before CSS got loaded</br>It seems like this script does not have the right to write in the file FEEDS.PHP</br>Make sure to give write access and reload the page</br>Otherwise remove the Save/feeds.php (if you have no save to load) file and directory and reload the page (with write access in RSS)</br></br>");
     return false;
   }

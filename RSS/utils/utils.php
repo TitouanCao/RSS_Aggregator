@@ -492,7 +492,7 @@ function display_welcome_message($side) {
   Feel free to input new sources thanks to the form in the bottom left hand corner</br>
   You can also directly enter an array of source (do not use this functionality if you do not know what you are doing)</br>
   <form action='' method='post'>
-    <textarea id='welc-textarea' name='loadArray' placeholder='Your Array of Sources\nSource = Name + URL + (Twitter link + Color)'></textarea></br>
+    <textarea id='welc-textarea' name='loadArray' placeholder='Your Sources separated by coma\nex: new Source(\"Name\", \"URL\", \"(Twitter link)\",  \"(Color)\"), [...]'></textarea></br>
     <input id='welc-textarea-button' type='submit' value='SEND' class='my_buttons'>
   </form>
   Here is a little tutorial of the functionning of the interface:
