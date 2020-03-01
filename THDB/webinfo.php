@@ -8,7 +8,6 @@ require_once("tp3-helpers.php");
 			if(isset($_GET['language'])){
 				$array["language"] = $_GET['language'];
 			}
-			//if(isset($argv[2])) $array = array('language' => $argv[2]);
 			else $array = array('language' => 'en');
 			if(isset($_GET['movie'])) $content = json_decode(tmdbget("movie/".$_GET['movie'], $array), true);
 			else $content = json_decode(tmdbget("movie/550", $array), true);
