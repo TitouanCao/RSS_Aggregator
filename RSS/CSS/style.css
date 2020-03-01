@@ -90,7 +90,7 @@
 
 body {
   transition: 1s;
-  opacity: 0;
+  opacity: 1;
   font-family: "Avenir";
   overflow-x: hidden;
   overflow-y:auto;

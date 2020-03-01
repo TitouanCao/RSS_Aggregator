@@ -288,6 +288,27 @@ function write_source_file($data) {
   }
 }
 
+function get_twitter($url) {
+  if($code = file_get_contents($url)) {
+    $code = htmlentities($code);
+    $found = preg_match('/twitter-timeline.*href=["&].*https:\/\/twitter.com\/.*["&]/', $code, $match, PREG_OFFSET_CAPTURE);
+    if ($found > 0) {
+      $found = preg_match('/https:\/\/twitter.com\/.*["&]/', $match[0][0], $match, PREG_OFFSET_CAPTURE);
+      if ($found > 0){
+        $i = 0;
+        $string = "";
+        while ($i < 40 && strcmp($match[0][0][$i], " ") != 0) {
+          $string = $string."".$match[0][0][$i];
+          $i++;
+        }
+        $string = substr($string, 0, -6);
+        return $string;
+      }
+    }
+  }
+  return false;
+}
+
 function parse_duration_seconds($seconds) {
   $hours = 0;
   $minutes = 0;

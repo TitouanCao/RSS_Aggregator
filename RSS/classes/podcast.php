@@ -77,9 +77,12 @@ class Podcast {
     if (!isset($_SESSION["resourcesLocation"])) return display_err_msg("Session not found");
     if ($this->date->format("D") == "Sun" || $this->date->format("D") == "Sat" || $this->date->format("D") == "Fri") $tooltipClass = "right";
     else $tooltipClass = "left";
-    return "<div id=".spl_object_hash($this)." class='audio-icon' onclick='switch_audio(this.id)'>
+    return "<div class='audio-icon' onclick='switch_audio(this)'>
               <img src='".$_SESSION["resourcesLocation"]."play.png' alt='audio situation icon' width='40px'>
             </div>
+            <audio preload='none' src=".$this->audioLink.">
+              Your browser does not support the audio element.
+            </audio>
             <div class='cell-inner-div' style='background-color:".$this->source->color.";' onmousedown='return false;'>
               <div class='compact-span'>".$this->date->format("d F Y")."</div>
               <div class='compact-title'>
@@ -90,9 +93,6 @@ class Podcast {
                   </div>
                 </a>
               </div>
-              <audio preload='none' src=".$this->audioLink.">
-                Your browser does not support the audio element.
-              </audio>
             </div>";
   }
 

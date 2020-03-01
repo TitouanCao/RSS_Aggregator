@@ -99,8 +99,8 @@ function set_compact_td_size() {
   for (var i = 0; i < tds.length; i++) {
     let max = 0;
     for (var j = 0; j < tds[i].children.length; j++) {
-      if (tds[i].children[j].children[1].offsetHeight > max) {
-        max = tds[i].children[j].children[1].offsetHeight;
+      if (tds[i].children[j].children[2].offsetHeight > max) {
+        max = tds[i].children[j].children[2].offsetHeight;
       }
     }
     tds[i].style.height = tds[i].children.length*50 + (max*1.5)  + "px"
@@ -189,13 +189,13 @@ function fold(element) {
 }
 
 function unfold(element) {
-  let child = element.children[1]
+  let child = element.children[2]
   element.style.height = child.offsetHeight+"px"
   element.style.overflow = "visible"
 }
 
 function switch_audio(element) {
-  let childrens = document.getElementById(element).parentNode.children
+  let childrens = element.parentNode.children
   for (var i = 0; i < childrens.length; i++) {
     if (childrens[i].className == "audio-icon") {
       let img = childrens[i].children
